@@ -3,9 +3,9 @@ import ServiceCart from './ServiceCart';
 
 const Services = () => {
     const [services , setServices] = useState([]);
-    console.log(services)
+    // console.log(services)
     useEffect( () => {
-        fetch('services.json')
+        fetch('http://localhost:5000/services')
         .then(res => res.json())
         .then(data => setServices(data))
     },[])
