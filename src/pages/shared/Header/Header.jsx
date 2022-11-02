@@ -1,15 +1,31 @@
 import React from "react";
+import { FaCartArrowDown, FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/logo.svg";
 
 const Header = () => {
-
-    const menuItems = <>
-        <li className="font-semibold"><Link to='/'>Home</Link></li>
+  const menuItems = (
+    <>
+      <li className="font-semibold">
+        <Link to="/">Home</Link>
+      </li>
+      <li className="font-semibold">
+        <Link to="/">About</Link>
+      </li>
+      <li className="font-semibold">
+        <Link to="/">Service</Link>
+      </li>
+      <li className="font-semibold">
+        <Link to="/">Blog</Link>
+      </li>
+      <li className="font-semibold">
+        <Link to="/">Contact</Link>
+      </li>
     </>
+  );
 
   return (
-    <div className="navbar bg-slate-500 mb-8 mt-4">
+    <div className="navbar bg-stone-100 mb-8 mt-4 p-3 rounded-md shadow-md">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -32,20 +48,23 @@ const Header = () => {
             tabIndex={0}
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
-           {menuItems}
+            {menuItems}
           </ul>
         </div>
-        <Link to='/' className="btn btn-ghost normal-case text-xl">
-            <img className="w-3/5" src={logo} alt="" />
+        <Link to="/" className="btn btn-ghost normal-case text-xl">
+          <img className="w-3/5" src={logo} alt="" />
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal p-0">
-          {menuItems}
-        </ul>
+        <ul className="menu menu-horizontal p-0">{menuItems}</ul>
       </div>
-      <div className="navbar-end">
-      <button className="btn btn-outline btn-warning">Appointment</button>
+      <div className="navbar-end ">
+        <div className="flex justify-between ">
+          <FaSearch className="mr-5"></FaSearch>
+          <FaCartArrowDown className="mr-5"></FaCartArrowDown>
+          </div>
+          <button className="btn btn-outline btn-warning">Appointment</button>
+        
       </div>
     </div>
   );
