@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-const OrdersRow = ({ order }) => {
-  const { serviceId, serviceName, customer, phone, price } = order;
-  const [service, setService] = useState({});
-
+const OrdersRow = ({ order , handlerDelete}) => {
+  const { serviceId, serviceName, customer, phone, price, _id } = order;
+  const [service, setService] = useState([]);
+  console.log(service)
   useEffect(() => {
     fetch(`http://localhost:5000/services/${serviceId}`)
       .then((res) => res.json())
@@ -12,25 +12,14 @@ const OrdersRow = ({ order }) => {
 
 
 
-  const handlerDelete = (service) => {
-        fetch(`http://localhost:5000/orders/${serviceId}`, {
-            method : 'delete'
-        })
-        .then(res => res.json())
-        .then(data => {
-            if(data.deletedCount > 0){
-                alert('your order is deleted')
-                const remaining = service.filter(ser => ser._id !== service._id)
-                setService(remaining);
-            }
-        })
-  }
-
   return (
     <tr>
       <th>
         <label>
-          <button onClick={()=> handlerDelete(service)} className="btn btn-square btn-outline">
+          <button
+            onClick={() => handlerDelete(_id)}
+            className="btn btn-square btn-outline"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
