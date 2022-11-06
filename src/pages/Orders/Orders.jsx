@@ -3,14 +3,26 @@ import { AuthContext } from "../../UserContext/UserContext";
 import OrdersRow from "./OrdersRow";
 
 const Orders = () => {
-  const { user } = useContext(AuthContext);
+  const { user,logout } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
   
   useEffect(() => {
-    fetch(`http://localhost:5000/orders?email=${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => setOrders(data));
-  }, [user?.email]);
+    fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+      headers : {
+        authorization : `Bearer ${localStorage.getItem('genius-token')}`
+      }
+    })
+      .then((res) => {
+        if(res.status === 403){
+           return logout();
+        }
+        return res.json()
+      })
+      .then((data) => {
+        console.log(data)
+        setOrders(data)
+      });
+  }, [user?.email,logout]);
 //   console.log(orders);
 
 const handlerDelete = (_id) => {

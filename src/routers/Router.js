@@ -5,6 +5,7 @@ import Home from "../pages/Home/Home/Home";
 import Login from "../pages/Login/Login";
 import Orders from "../pages/Orders/Orders";
 import SignUp from "../pages/SignUp/SignUp";
+import PrivateRouter from "../private/PrivateRouter";
 
 export const router = createBrowserRouter([
     {
@@ -30,7 +31,7 @@ export const router = createBrowserRouter([
             },
             {
                 path : '/orders',
-                element : <Orders></Orders>,
+                element : <PrivateRouter><Orders></Orders></PrivateRouter>,
                 // loader : () => fetch('http://localhost:5000/orders'),
             }
         ]
