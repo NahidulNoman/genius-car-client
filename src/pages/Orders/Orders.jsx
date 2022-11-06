@@ -30,7 +30,25 @@ const handlerDelete = (_id) => {
   }
 };
 
-  
+  const handlerStatusUpdate = (id) => {
+      fetch(`http://localhost:5000/orders/${id}`, {
+        method : 'PATCH',
+        headers : {
+          'content-type' : 'application/json'
+        },
+        body : JSON.stringify({status : 'Approved'})
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.modifiedCount > 0) {
+          const remaining = orders.filter(ord => ord._id !== id);
+          const approving = orders.find(ord => ord._id === id);
+          approving.status = 'Approved';
+          const newUpdate = [approving , ...remaining]
+          setOrders(newUpdate);
+        }
+      })
+  }
 
 
   return (
@@ -51,6 +69,7 @@ const handlerDelete = (_id) => {
                 orders.map(order => <OrdersRow 
                     key={order._id}
                     order={order}
+                    handlerStatusUpdate={handlerStatusUpdate}
                     handlerDelete={handlerDelete}
                 ></OrdersRow>)
             }

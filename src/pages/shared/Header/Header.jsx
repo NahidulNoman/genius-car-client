@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaCartArrowDown, FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/logo.svg";
+import { AuthContext } from "../../../UserContext/UserContext";
 
 const Header = () => {
+  const {user,logout} = useContext(AuthContext);
+
+  const handlerOut = () => {
+    logout()
+    .then()
+    .catch()
+  }
+
   const menuItems = (
     <>
       <li className="font-semibold">
@@ -21,9 +30,19 @@ const Header = () => {
       <li className="font-semibold">
         <Link to="/">Contact</Link>
       </li>
-      <li className="font-semibold">
-        <Link to="/login">LogIn</Link>
+      {
+        user?.email ? <>
+        <li className="font-semibold">
+        <Link to="/orders">Orders</Link>
       </li>
+      <li className="font-semibold">
+        <Link onClick={handlerOut}>Log Out</Link>
+      </li>
+        </> :
+      <li className="font-semibold">
+      <Link to="/login">LogIn</Link>
+    </li>
+      }
     </>
   );
 
