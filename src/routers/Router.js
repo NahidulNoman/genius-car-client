@@ -8,32 +8,39 @@ import SignUp from "../pages/SignUp/SignUp";
 import PrivateRouter from "../private/PrivateRouter";
 
 export const router = createBrowserRouter([
-    {
-        path : '/',
-        element : <Main></Main>,
-        children : [
-            {
-                path : '/',
-                element : <Home></Home>
-            },
-            {
-                path : '/login',
-                element: <Login></Login>
-            },
-            {
-                path :'/sign',
-                element : <SignUp></SignUp>
-            },
-            {
-                path : '/checkout/:id',
-                element : <Checkout></Checkout>,
-                loader : ({params}) => fetch(`https://genius-car-server-rho-nine.vercel.app/services/${params.id}`),
-            },
-            {
-                path : '/orders',
-                element : <PrivateRouter><Orders></Orders></PrivateRouter>,
-                // loader : () => fetch('https://genius-car-server-rho-nine.vercel.app/orders'),
-            }
-        ]
-    }
-])
+  {
+    path: "/",
+    element: <Main></Main>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/sign",
+        element: <SignUp></SignUp>,
+      },
+      {
+        path: "/checkout/:id",
+        element: <Checkout></Checkout>,
+        loader: ({ params }) =>
+          fetch(
+            `https://genius-car-server-rho-nine.vercel.app/services/${params.id}`
+          ),
+      },
+      {
+        path: "/orders",
+        element: (
+          <PrivateRouter>
+            <Orders></Orders>
+          </PrivateRouter>
+        ),
+        // loader : () => fetch('https://genius-car-server-rho-nine.vercel.app/orders'),
+      },
+    ],
+  },
+]);
